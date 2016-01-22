@@ -239,6 +239,6 @@ label_url=tk.Label(root, text='url:', font=('tahoma', 10))
 label_url.place(x=30,y=y_origin+i*gain-30)
 
 button_about=ttk.Button(root, text='About...', width=20, command=about)
-button_about.place(x=1000, y=630)
+button_about.place(x=1060, y=630)
 
 root.mainloop()

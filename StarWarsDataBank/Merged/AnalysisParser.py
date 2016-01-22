@@ -369,7 +369,7 @@ def cheat_sheet():
     cheat_sheet_win.geometry('1430x830+50+10')    
     
     cheat_sheet_win.title('Cheat Sheet')
-    text_cstext = tk.Text(cheat_sheet_win, width=170, height=41, font=('tahoma', 11), wrap='none')
+    text_cstext = tk.Text(cheat_sheet_win, width=170, height=40, font=('tahoma', 9))
     text_cstext.place(x=20, y=20)
     
     txt = '''#CHROM
