@@ -1,8 +1,5 @@
 # Willowbend DICOM
-#* GUI implementation of conversion from DICOM to avi
-
 ## Libraries
-
 import SimpleITK as sitk
 import cv2
 import pydicom
@@ -13,9 +10,7 @@ from tkinter import messagebox
 from tkinter import filedialog
 
 ## Helper Functions
-
 ### Basic Helper Functions
-
 def loadFile(filename):
     ds = sitk.ReadImage(filename)
     img_array = sitk.GetArrayFromImage(ds)
@@ -66,7 +61,7 @@ def writeVideo(img_array, directory):
         
     video.release()
 
-### GUI Helper Function
+## GUI Helper Function
 
 def browseFileButton():
     global filename
@@ -121,7 +116,7 @@ def loadFileButton():
             img_array, frame_num, width, height = loadFile(filename)
             information = loadFileInformation(filename) 
             isLoad = 1
-            messagebox.showinfo("DICOM File Loaded", "DICOM File successfully loaded!")
+            messagebox.showinfo("DICOM File Loaded", "DICOM file successfully loaded!")
         except:
             messagebox.showwarning("File Loading Failed", "Sorry, file loading failed! Please check the file format.")
 
@@ -135,17 +130,17 @@ def convertVideoButton():
     if filename == '':
         messagebox.showwarning("No File to be Converted", "Sorry, no file to be converted! Please choose a DICOM file first.")
     elif isLoad == 0:
-        messagebox.showwarning("No File loaded", "Sorry, no file loaded! Please load the chosen DICOM file.")
+        messagebox.showwarning("No File Loaded", "Sorry, no file loaded! Please load the chosen DICOM file.")
     elif directory == '':
         messagebox.showwarning("No Directory", "Sorry, no directory shown! Please specify the output directory.")
     else:
         img_array_limited_equalized = limitedEqualize(img_array, clipLimit)
         writeVideo(img_array_limited_equalized, directory)
-        messagebox.showinfo("Video File Converted", "Video File successfully converted!")
+        messagebox.showinfo("Video File Converted", "Video file successfully generated!")
         isLoad = 0
 
 def about():
-    messagebox.showinfo("About", "Author: Chuan Yang, Feb 2nd, 2016, Houston")
+    messagebox.showinfo("About", "Author: Chuan Yang, Febuary 3rd, 2016, Houston")
 
 ## Main Stream
 
@@ -181,84 +176,84 @@ label_photo.place(x=260,y=35)
 
 #/////////////Text///////////////////////////////////////////////////////////////////
 
-text_PatientID=tk.Text(root, width=20,height=1, font=('tahoma', 9))
+text_PatientID=tk.Text(root, width=20,height=1, font=('tahoma', 9), bd=2)
 text_PatientID.place(x=60, y=90)
 label_PatientID=tk.Label(root, text='Patient ID', font=('tahoma', 9))
 label_PatientID.place(x=60,y=60)
 
 #//////////////////
 y_position = 180
-text_PatientName=tk.Text(root, width=30,height=1, font=('tahoma', 9))
+text_PatientName=tk.Text(root, width=30,height=1, font=('tahoma', 9), bd=2)
 text_PatientName.place(x=60, y=y_position)
 label_PatientName=tk.Label(root, text='Patient\'s Name:', font=('tahoma', 9))
 label_PatientName.place(x=60,y=y_position-30)
 
-text_PatientSex=tk.Text(root, width=15,height=1, font=('tahoma', 9))
+text_PatientSex=tk.Text(root, width=15,height=1, font=('tahoma', 9), bd=2)
 text_PatientSex.place(x=360, y=y_position)
 label_PatientSex=tk.Label(root, text='Gender:', font=('tahoma', 9))
 label_PatientSex.place(x=360,y=y_position-30)
 
-text_PatientBirthDate=tk.Text(root, width=25,height=1, font=('tahoma', 9))
+text_PatientBirthDate=tk.Text(root, width=25,height=1, font=('tahoma', 9), bd=2)
 text_PatientBirthDate.place(x=560, y=y_position)
 label_PatientBirthDate=tk.Label(root, text='Birth Date:', font=('tahoma', 9))
 label_PatientBirthDate.place(x=560,y=y_position-30)
 
 #//////////////////////////////////////////////////////////////////////////////////
 y_position = 260
-text_StudyID=tk.Text(root, width=25,height=1, font=('tahoma', 9))
+text_StudyID=tk.Text(root, width=25,height=1, font=('tahoma', 9), bd=2)
 text_StudyID.place(x=60, y=y_position)
 label_StudyID=tk.Label(root, text='Study ID:', font=('tahoma', 9))
 label_StudyID.place(x=60,y=y_position-30)
 
-text_StudyDate=tk.Text(root, width=25,height=1, font=('tahoma', 9))
+text_StudyDate=tk.Text(root, width=25,height=1, font=('tahoma', 9), bd=2)
 text_StudyDate.place(x=340, y=y_position)
 label_StudyDate=tk.Label(root, text='Study Date:', font=('tahoma', 9))
 label_StudyDate.place(x=340,y=y_position-30)
 
-text_StudyTime=tk.Text(root, width=25,height=1, font=('tahoma', 9))
+text_StudyTime=tk.Text(root, width=25,height=1, font=('tahoma', 9), bd=2)
 text_StudyTime.place(x=600, y=y_position)
 label_StudyTime=tk.Label(root, text='Study Time:', font=('tahoma', 9))
 label_StudyTime.place(x=600,y=y_position-30)
 
 #////////////////////////////////////
 y_position = 340
-text_InstitutionName=tk.Text(root, width=50,height=1, font=('tahoma', 9))
+text_InstitutionName=tk.Text(root, width=50,height=1, font=('tahoma', 9), bd=2)
 text_InstitutionName.place(x=60, y=y_position)
 label_InstitutionName=tk.Label(root, text='Institution Name:', font=('tahoma', 9))
 label_InstitutionName.place(x=60,y=y_position-30)
 
-text_Manufacturer=tk.Text(root, width=38,height=1, font=('tahoma', 9))
+text_Manufacturer=tk.Text(root, width=38,height=1, font=('tahoma', 9), bd=2)
 text_Manufacturer.place(x=560, y=y_position)
 label_Manufacturer=tk.Label(root, text='Manufacturer:', font=('tahoma', 9))
 label_Manufacturer.place(x=560,y=y_position-30)
 
 # File Name
-text_filename=tk.Text(root, width=100,height=1, font=('tahoma', 9))
+text_filename=tk.Text(root, width=100,height=1, font=('tahoma', 9), bd=2)
 text_filename.place(x=60, y=450)
 label_filename=tk.Label(root, text='DICOM File:', font=('tahoma', 9))
 label_filename.place(x=60,y=420)
 
-text_NumberOfFrames=tk.Text(root, width=10,height=1, font=('tahoma', 9))
+text_NumberOfFrames=tk.Text(root, width=10,height=1, font=('tahoma', 9), bd=2)
 text_NumberOfFrames.place(x=660, y=400)
 label_NumberOfFrames=tk.Label(root, text='Frames', font=('tahoma', 9))
 label_NumberOfFrames.place(x=760,y=400)
 
-text_clipLimit=tk.Text(root, width=8,height=1, font=('tahoma', 9))
-text_clipLimit.place(x=580, y=500)
+text_clipLimit=tk.Text(root, width=8,height=1, font=('tahoma', 9), bd=2)
+text_clipLimit.place(x=580, y=510)
 label_clipLimit=tk.Label(root, text='Clip Limit:', font=('tahoma', 9))
-label_clipLimit.place(x=500,y=500)
+label_clipLimit.place(x=500,y=510)
 text_clipLimit.delete('1.0', tk.END)
 text_clipLimit.insert('1.0', clipLimit)
 
 #/////////////Button///////////////////////////////////////////////////////////////
 button_browse=ttk.Button(root, text='browse...', width=20, command=browseFileButton)
-button_browse.place(x=60, y=500)
+button_browse.place(x=60, y=510)
 
 button_load=ttk.Button(root, text='Load', width=20, command=loadFileButton)
-button_load.place(x=260, y=500)
+button_load.place(x=260, y=510)
 
 button_convert=ttk.Button(root, text='Convert', width=20, command=convertVideoButton)
-button_convert.place(x=700, y=500)
+button_convert.place(x=700, y=510)
 
 button_about=ttk.Button(root, text='About...', width=20, command=about)
 button_about.place(x=260, y=580)
