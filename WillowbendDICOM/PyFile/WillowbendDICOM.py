@@ -1,17 +1,27 @@
+# Willowbend DICOM
+#* GUI implementation of conversion from DICOM to avi
+
+## Libraries
+
 import SimpleITK as sitk
 import cv2
-from PIL import Image
 import pydicom
 import numpy as np
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from tkinter import filedialog
+
+## Helper Functions
+
+### Basic Helper Functions
+
 def loadFile(filename):
     ds = sitk.ReadImage(filename)
     img_array = sitk.GetArrayFromImage(ds)
     frame_num, width, height = img_array.shape
     return img_array, frame_num, width, height
+
 def loadFileInformation(filename):
     information = {}
     ds = pydicom.read_file(filename)
@@ -28,12 +38,14 @@ def loadFileInformation(filename):
     information['NumberOfFrames'] =ds.NumberOfFrames
     
     return information
+
 def autoEqualize(img_array):
     img_array_list = []
     for img in img_array:
         img_array_list.append(cv2.equalizeHist(img))
     img_array_equalized = np.array(img_array_list)
     return img_array_equalized
+
 def limitedEqualize(img_array, limit=4.0):
     img_array_list = []
     for img in img_array:
@@ -42,6 +54,7 @@ def limitedEqualize(img_array, limit=4.0):
         
     img_array_limited_equalized = np.array(img_array_list)
     return img_array_limited_equalized   
+
 def writeVideo(img_array, directory):
     frame_num, width, height = img_array.shape
     filename_output = directory + '/' + filename.split('.')[0].split('/')[-1] + '.avi'        
@@ -52,6 +65,9 @@ def writeVideo(img_array, directory):
         video.write(img) # Write video file frame by frame
         
     video.release()
+
+### GUI Helper Function
+
 def browseFileButton():
     global filename
     
@@ -94,6 +110,7 @@ def browseFileButton():
         
     except:
         filename = ''
+
 def loadFileButton():
     global img_array, frame_num, width, height, information, isLoad
     
@@ -107,6 +124,7 @@ def loadFileButton():
             messagebox.showinfo("DICOM File Loaded", "DICOM File successfully loaded!")
         except:
             messagebox.showwarning("File Loading Failed", "Sorry, file loading failed! Please check the file format.")
+
 def convertVideoButton():
     global isLoad, clipLimit
     
@@ -125,13 +143,17 @@ def convertVideoButton():
         writeVideo(img_array_limited_equalized, directory)
         messagebox.showinfo("Video File Converted", "Video File successfully converted!")
         isLoad = 0
+
 def about():
     messagebox.showinfo("About", "Author: Chuan Yang, Feb 2nd, 2016, Houston")
+
+## Main Stream
+
 # Main Frame////////////////////////////////////////////////////////////////////////////////////////
 root = tk.Tk()
 
 w = 930 # width for the Tk root
-h = 760 # height for the Tk root
+h = 660 # height for the Tk root
 
 # get screen width and height
 ws = root.winfo_screenwidth() # width of the screen
@@ -149,7 +171,7 @@ root.title('Willowbend DICOM')
 root.iconbitmap('Heart.ico')
 
 isLoad = 0
-clipLimit = 6.0
+clipLimit = 3.0
 filename = ''
 
 #///////////Image Title///////////////////////////////
@@ -158,83 +180,92 @@ label_photo=tk.Label(root, image=photo)
 label_photo.place(x=260,y=35)
 
 #/////////////Text///////////////////////////////////////////////////////////////////
-text_PatientID=tk.Text(root, width=20,height=1, font=('tahoma', 9))
-text_PatientID.place(x=60, y=100)
-label_PatientID=tk.Label(root, text='Patient ID', font=('tahoma', 9))
-label_PatientID.place(x=60,y=70)
 
+text_PatientID=tk.Text(root, width=20,height=1, font=('tahoma', 9))
+text_PatientID.place(x=60, y=90)
+label_PatientID=tk.Label(root, text='Patient ID', font=('tahoma', 9))
+label_PatientID.place(x=60,y=60)
+
+#//////////////////
+y_position = 180
 text_PatientName=tk.Text(root, width=30,height=1, font=('tahoma', 9))
-text_PatientName.place(x=60, y=180)
+text_PatientName.place(x=60, y=y_position)
 label_PatientName=tk.Label(root, text='Patient\'s Name:', font=('tahoma', 9))
-label_PatientName.place(x=60,y=150)
+label_PatientName.place(x=60,y=y_position-30)
 
 text_PatientSex=tk.Text(root, width=15,height=1, font=('tahoma', 9))
-text_PatientSex.place(x=360, y=180)
+text_PatientSex.place(x=360, y=y_position)
 label_PatientSex=tk.Label(root, text='Gender:', font=('tahoma', 9))
-label_PatientSex.place(x=360,y=150)
+label_PatientSex.place(x=360,y=y_position-30)
 
 text_PatientBirthDate=tk.Text(root, width=25,height=1, font=('tahoma', 9))
-text_PatientBirthDate.place(x=560, y=180)
+text_PatientBirthDate.place(x=560, y=y_position)
 label_PatientBirthDate=tk.Label(root, text='Birth Date:', font=('tahoma', 9))
-label_PatientBirthDate.place(x=560,y=150)
+label_PatientBirthDate.place(x=560,y=y_position-30)
 
+#//////////////////////////////////////////////////////////////////////////////////
+y_position = 260
 text_StudyID=tk.Text(root, width=25,height=1, font=('tahoma', 9))
-text_StudyID.place(x=60, y=300)
+text_StudyID.place(x=60, y=y_position)
 label_StudyID=tk.Label(root, text='Study ID:', font=('tahoma', 9))
-label_StudyID.place(x=60,y=270)
+label_StudyID.place(x=60,y=y_position-30)
 
 text_StudyDate=tk.Text(root, width=25,height=1, font=('tahoma', 9))
-text_StudyDate.place(x=340, y=300)
+text_StudyDate.place(x=340, y=y_position)
 label_StudyDate=tk.Label(root, text='Study Date:', font=('tahoma', 9))
-label_StudyDate.place(x=340,y=270)
+label_StudyDate.place(x=340,y=y_position-30)
 
 text_StudyTime=tk.Text(root, width=25,height=1, font=('tahoma', 9))
-text_StudyTime.place(x=600, y=300)
+text_StudyTime.place(x=600, y=y_position)
 label_StudyTime=tk.Label(root, text='Study Time:', font=('tahoma', 9))
-label_StudyTime.place(x=600,y=270)
+label_StudyTime.place(x=600,y=y_position-30)
 
+#////////////////////////////////////
+y_position = 340
 text_InstitutionName=tk.Text(root, width=50,height=1, font=('tahoma', 9))
-text_InstitutionName.place(x=60, y=400)
+text_InstitutionName.place(x=60, y=y_position)
 label_InstitutionName=tk.Label(root, text='Institution Name:', font=('tahoma', 9))
-label_InstitutionName.place(x=60,y=370)
+label_InstitutionName.place(x=60,y=y_position-30)
 
 text_Manufacturer=tk.Text(root, width=38,height=1, font=('tahoma', 9))
-text_Manufacturer.place(x=560, y=400)
+text_Manufacturer.place(x=560, y=y_position)
 label_Manufacturer=tk.Label(root, text='Manufacturer:', font=('tahoma', 9))
-label_Manufacturer.place(x=560,y=370)
+label_Manufacturer.place(x=560,y=y_position-30)
 
 # File Name
 text_filename=tk.Text(root, width=100,height=1, font=('tahoma', 9))
-text_filename.place(x=60, y=520)
+text_filename.place(x=60, y=450)
 label_filename=tk.Label(root, text='DICOM File:', font=('tahoma', 9))
-label_filename.place(x=60,y=490)
+label_filename.place(x=60,y=420)
 
 text_NumberOfFrames=tk.Text(root, width=10,height=1, font=('tahoma', 9))
-text_NumberOfFrames.place(x=660, y=470)
+text_NumberOfFrames.place(x=660, y=400)
 label_NumberOfFrames=tk.Label(root, text='Frames', font=('tahoma', 9))
-label_NumberOfFrames.place(x=760,y=470)
+label_NumberOfFrames.place(x=760,y=400)
 
 text_clipLimit=tk.Text(root, width=8,height=1, font=('tahoma', 9))
-text_clipLimit.place(x=580, y=580)
+text_clipLimit.place(x=580, y=500)
 label_clipLimit=tk.Label(root, text='Clip Limit:', font=('tahoma', 9))
-label_clipLimit.place(x=500,y=580)
+label_clipLimit.place(x=500,y=500)
 text_clipLimit.delete('1.0', tk.END)
 text_clipLimit.insert('1.0', clipLimit)
 
 #/////////////Button///////////////////////////////////////////////////////////////
 button_browse=ttk.Button(root, text='browse...', width=20, command=browseFileButton)
-button_browse.place(x=60, y=580)
+button_browse.place(x=60, y=500)
 
 button_load=ttk.Button(root, text='Load', width=20, command=loadFileButton)
-button_load.place(x=260, y=580)
+button_load.place(x=260, y=500)
 
 button_convert=ttk.Button(root, text='Convert', width=20, command=convertVideoButton)
-button_convert.place(x=700, y=580)
+button_convert.place(x=700, y=500)
 
 button_about=ttk.Button(root, text='About...', width=20, command=about)
-button_about.place(x=260, y=680)
+button_about.place(x=260, y=580)
 
 button_close=ttk.Button(root, width=20, text='Exit', command=root.destroy)
-button_close.place(x=700, y=680)
+button_close.place(x=700, y=580)
+
 cv2.destroyAllWindows()
+
 root.mainloop()
