@@ -33,7 +33,7 @@ root.geometry('705x320+180+80')
 root.title('Conversion between Celcius and Fahrenheit')
 
 #Image Implantation, which is very exciting!!!!!!!!
-photo=tk.PhotoImage(file='D:\\PySource\\Routine\\gauge.png')
+photo=tk.PhotoImage(file='gauge.png')
 label_photo=tk.Label(root, image=photo)
 label_photo.place(x=300,y=5)
 
