@@ -171,7 +171,7 @@ filename = ''
 
 #///////////Image Title///////////////////////////////
 photo=tk.PhotoImage(file='Title.png')
-label_photo=tk.Label(root, image=photo)
+label_photo=tk.Label(root, image=photo, relief='sunken', borderwidth=3)
 label_photo.place(x=260,y=35)
 
 #/////////////Text///////////////////////////////////////////////////////////////////
