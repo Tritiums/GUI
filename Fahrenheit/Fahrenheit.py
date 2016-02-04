@@ -34,7 +34,7 @@ root.title('Conversion between Celcius and Fahrenheit')
 
 #Image Implantation, which is very exciting!!!!!!!!
 photo=tk.PhotoImage(file='gauge.png')
-label_photo=tk.Label(root, image=photo)
+label_photo=tk.Label(root, image=photo, relief='sunken', borderwidth=2)
 label_photo.place(x=300,y=5)
 
 #Celcium to Fahrenheit
