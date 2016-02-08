@@ -1,5 +1,0 @@
-('c:\\anaconda3\\lib\\site-packages\\simpleitk-0.9.1-py3.4-win-amd64.egg',
- None,
- {'*.pyd', 'EGG-INFO', '*.pyc', '*.pyo', '*.so', '*.py'},
- 'DATA',
- [])
