@@ -1,4 +1,6 @@
 # Willowbend DICOM
+#A dialog-based DICOM to video converter.
+
 ## Libraries
 import SimpleITK as sitk
 import cv2
@@ -10,7 +12,9 @@ from tkinter import messagebox
 from tkinter import filedialog
 
 ## Helper Functions
+
 ### Basic Helper Functions
+
 def loadFile(filename):
     ds = sitk.ReadImage(filename)
     img_array = sitk.GetArrayFromImage(ds)
@@ -140,7 +144,42 @@ def convertVideoButton():
         isLoad = 0
 
 def about():
-    messagebox.showinfo("About", "Author: Chuan Yang, Febuary 3rd, 2016, Houston")
+    about_root=tk.Tk()
+    
+    w = 367 # width for the Tk root
+    h = 230 # height for the Tk root
+
+    # get screen width and height
+    ws = about_root.winfo_screenwidth() # width of the screen
+    hs = about_root.winfo_screenheight() # height of the screen
+
+    # calculate x and y coordinates for the Tk root window
+    x = (ws/2) - (w/2)
+    y = (hs/2) - (h/2)
+
+    # set the dimensions of the screen 
+    # and where it is placed
+    about_root.geometry('%dx%d+%d+%d' % (w, h, x, y))
+    about_root.title('About Willowbend DICOM')  
+    about_root.iconbitmap('Heart.ico')
+
+    label_author=tk.Label(about_root,text='Willowbend DICOM Version 1.0', font=('tahoma', 9))
+    label_author.place(x=90,y=30)
+
+    label_author=tk.Label(about_root,text='Copyright (C) 2016', font=('tahoma', 9))
+    label_author.place(x=125,y=60)
+    
+    label_author=tk.Label(about_root,text='Author: Chuan Yang', font=('tahoma', 9))
+    label_author.place(x=125,y=90)
+    
+    label_author=tk.Label(about_root,text='Shengjing Hospital of China Medical University', font=('tahoma', 9))
+    label_author.place(x=50,y=120)
+   
+
+    button_refresh=ttk.Button(about_root, width=15, text='OK', command=about_root.destroy)
+    button_refresh.place(x=140, y=170)
+
+    about_root.mainloop()
 
 ## Main Stream
 
@@ -264,3 +303,13 @@ button_close.place(x=700, y=580)
 cv2.destroyAllWindows()
 
 root.mainloop()
+
+### !!! Make sure to downgrade setuptools to 19.2. If this does get the frozen binary with PyInstaller !!!!
+#Just hit this myself. Can confirm that downgrading to setuptools 19.2 fixes the issue for me.
+
+### To install the SimpleITK package with conda run:
+'''
+```powershell
+conda install --channel https://conda.anaconda.org/SimpleITK SimpleITK
+```
+'''
