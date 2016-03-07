@@ -2,6 +2,7 @@ from urllib import request
 import re
 import datetime
 import tkinter
+from tkinter import ttk
 
 def crude_oil_detect():
     url='http://www.bloomberg.com/energy/'
@@ -176,8 +177,21 @@ if __name__=='__main__':
    
     #////Window Establishment//////////////////////////////////////
     root=tkinter.Tk()
-    
-    root.geometry('730x680+80+20')
+
+    w = 730 # width for the Tk root
+    h = 680 # height for the Tk root
+
+    # get screen width and height
+    ws = root.winfo_screenwidth() # width of the screen
+    hs = root.winfo_screenheight() # height of the screen
+
+    # calculate x and y coordinates for the Tk root window
+    x = (ws/2) - (w/2)
+    y = (hs/2) - (h/2)
+
+    # set the dimensions of the screen 
+    # and where it is placed
+    root.geometry('%dx%d+%d+%d' % (w, h, x, y))
     root.title('Spider -- A Realtime Index Tool')
     
     #//////Label//////////////////////////////////////////////////
@@ -383,7 +397,21 @@ if __name__=='__main__':
 
     def about_spider():
         about_root=tkinter.Tk()
-        about_root.geometry('300x200+300+40')
+
+        w = 300 # width for the Tk root
+        h = 200 # height for the Tk root
+
+        # get screen width and height
+        ws = about_root.winfo_screenwidth() # width of the screen
+        hs = about_root.winfo_screenheight() # height of the screen
+
+        # calculate x and y coordinates for the Tk root window
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+
+        # set the dimensions of the screen 
+        # and where it is placed
+        about_root.geometry('%dx%d+%d+%d' % (w, h, x, y))
         about_root.title('About Spider')
     
         label_author=tkinter.Label(about_root,text='Author: Chuan Yang', font=30)
@@ -392,21 +420,21 @@ if __name__=='__main__':
         label_author=tkinter.Label(about_root,text='March 2015 in Houston, TX', font=30)
         label_author.place(x=50,y=80)
 
-        button_refresh=tkinter.Button(about_root, width=15, height=2, text='OK', font=20, command=about_root.destroy)
+        button_refresh=ttk.Button(about_root, width=20, text='OK', command=about_root.destroy)
         button_refresh.place(x=80, y=125)
 
         about_root.mainloop()
         
     #Refresh Button
-    button_refresh=tkinter.Button(root, width=15, height=2, text='Refresh', font=20, command=refresh)
+    button_refresh=ttk.Button(root, width=20, text='Refresh', command=refresh)
     button_refresh.place(x=70, y=610)
 
     #About Button
-    button_about=tkinter.Button(root, width=15, height=2, text='About', font=20, command=about_spider)
+    button_about=ttk.Button(root, width=20, text='About', command=about_spider)
     button_about.place(x=280, y=610)
 
     #Exit Button
-    button_refresh=tkinter.Button(root, width=15, height=2, text='Exit', font=20, command=root.destroy)
+    button_refresh=ttk.Button(root, width=20, text='Exit', command=root.destroy)
     button_refresh.place(x=510, y=610)
     
     root.mainloop()
