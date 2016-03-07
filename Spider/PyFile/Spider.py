@@ -193,6 +193,7 @@ if __name__=='__main__':
     # and where it is placed
     root.geometry('%dx%d+%d+%d' % (w, h, x, y))
     root.title('Spider -- A Realtime Index Tool')
+    root.iconbitmap('Heart-spider.ico')
     
     #//////Label//////////////////////////////////////////////////
     #Title Label    
@@ -421,7 +422,7 @@ if __name__=='__main__':
         label_author.place(x=50,y=80)
 
         button_refresh=ttk.Button(about_root, width=20, text='OK', command=about_root.destroy)
-        button_refresh.place(x=80, y=125)
+        button_refresh.place(x=90, y=140)
 
         about_root.mainloop()
         
@@ -438,4 +439,3 @@ if __name__=='__main__':
     button_refresh.place(x=510, y=610)
     
     root.mainloop()
-   
