@@ -170,20 +170,20 @@ def draw(canvas):
     global outcome, in_play, player, dealer, deck, score
     
     canvas.draw_text('Blackjack', [50, 80], 40, "Aqua")
-    canvas.draw_text('Dealer', [50, 170], 30, "Black")
-    canvas.draw_text('Player', [50, 390], 30, "Black")
-    canvas.draw_text(outcome, [230, 170], 25, "Black")
-    canvas.draw_text('Score: '+str(score), [400, 80], 30, "Black")   
+    canvas.draw_text('Dealer', [50, 170], 20, "Black")
+    canvas.draw_text('Player', [50, 390], 20, "Black")
+    canvas.draw_text(outcome, [230, 170], 20, "Black")
+    canvas.draw_text('Score: '+str(score), [400, 80], 20, "Black")   
     
     if in_play==False:
         dealer.draw(canvas, [50, 200])
         player.draw(canvas, [50, 420])
-        canvas.draw_text('New deal?', [230, 390], 30, "Black")
+        canvas.draw_text('New deal?', [230, 390], 20, "Black")
     else:        
         dealer.draw(canvas, [50, 200])
         player.draw(canvas, [50, 420])
         canvas.draw_image(card_back, CARD_CENTER, CARD_SIZE, [50+CARD_CENTER[0], 200+CARD_CENTER[1]], CARD_SIZE)
-        canvas.draw_text('Hit or stand?', [230, 390], 30, "Black")        
+        canvas.draw_text('Hit or stand?', [230, 390], 20, "Black")        
         
 # initialization frame
 frame = simplegui.create_frame("Blackjack", 600, 600)
